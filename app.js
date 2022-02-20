@@ -14,6 +14,6 @@ app.get("/time",(req, res)=>{
 
 
 app.use(express.static(__dirname+'/Public'))
-app.listen(8080,()=>{
+app.listen(5000,()=>{
     console.log("Now running on port: ", 8080);
 });

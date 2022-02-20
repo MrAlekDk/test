@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Is it NodeJS time?</title>
+</head>
+<body>
+    <section class="header">
+        <h1>What time is it?</h1>
+        <div class="clock-div">
+            <p id="day"></p>
+            <p id="clock" class="clock"></p>
+    </section>
+    <section class="main-content" id="main-content">
+        <div class="anders">
+            <img src="/MAnden.jpeg">
+        <p>"It's NodeJS time bby!" - Anders Latiff</p>   
+        </div> 
+    </section>
+    <section class="countdown-sec">
+        <div id="countholder">
+            <div><span class="days" id="days"></span><div class="smalltext">Days</div></div>
+            <div><span class="hours" id="hours"></span><div class="smalltext">Hours</div></div>
+            <div><span class="minutes" id="minutes"></span><div class="smalltext">Minutes</div></div>
+            <div><span class="seconds" id="seconds"></span><div class="smalltext">Seconds</div></div>
+           </div>
+   </div>
+    </section>
+    <section class="footer">
+        <small>Alexander Sørensen Copyright Ⓒ</small>
+    </section>
+</body>
+</html>
+<script>
+let date = new Date(); 
+                function currentTime() {
+  let date = new Date(); 
+  let hh = date.getHours();
+  let mm = date.getMinutes();
+  let ss = date.getSeconds();
+  let session = "AM";
+
+  if(hh == 0){
+      hh = 12;
+  }
+  if(hh > 12){
+      hh = hh - 12;
+      session = "PM";
+   }
+
+   hh = (hh < 10) ? "0" + hh : hh;
+   mm = (mm < 10) ? "0" + mm : mm;
+   ss = (ss < 10) ? "0" + ss : ss;
+    
+   let time = hh + ":" + mm + ":" + ss + " " + session;
+
+  document.getElementById("clock").innerText = time; 
+  document.getElementById("day").innerText = getDayString(date.getDay())
+  let t = setTimeout(function(){ currentTime() }, 1000);
+}
+currentTime();
+
+    function test(){
+        if(date.getDay()!==0){
+            document.getElementById("main-content").hidden=true
+        }
+    }
+    test()
+
+    function getDayString(number){
+        switch(number){
+            case 0:
+                return "Sunday";
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            case 6:
+                return "Saturday";
+        }
+    }
+</script>
+<script>
+    let curday;
+    let secTime;
+    let ticker;
+
+    function getSeconds() {
+     let nowDate = new Date();
+     let targetDay = 2 ; //Tuesday
+     let countertime = new Date(nowDate.getFullYear(),nowDate.getMonth(),nowDate.getDate(),8,30,0); //8 o' clock and 30 minutes past
+     let curtime = nowDate.getTime(); //current time
+     let atime = countertime.getTime(); //countdown time
+     let diff = parseInt((atime - curtime)/1000);
+     if (diff > 0) { curday = targetDay - nowDate.getDay() }
+     else { curday = targetDay - nowDate.getDay() -1 } //after countdown time
+     if (curday < 0) { curday += 7; } //already after countdown time, switch to next week
+     if (diff <= 0) { diff += (86400 * 7) }
+     startTimer (diff);
+    }
+    function startTimer(secs) {
+     secTime = parseInt(secs);
+     ticker = setInterval("tick()",1000);
+     tick(); //initial count display
+    }
+    function tick() {
+     let secs = secTime;
+
+     if (secs>0) {
+      secTime--;
+     }
+     else {
+      clearInterval(ticker);
+      getSeconds(); //start over
+     }
+     let days = Math.floor(secs/86400);
+     secs %= 86400;
+     let hours= Math.floor(secs/3600);
+     secs %= 3600;
+     let mins = Math.floor(secs/60);
+     secs %= 60;
+   
+     //update the time display
+     document.getElementById("days").innerHTML = curday;
+     document.getElementById("hours").innerHTML = ((hours < 10 ) ? "0" : "" ) + hours;
+     document.getElementById("minutes").innerHTML = ( (mins < 10) ? "0" : "" ) + mins;
+     document.getElementById("seconds").innerHTML = ( (secs < 10) ? "0" : "" ) + secs;
+    }
+    getSeconds()
+    </script>
+    

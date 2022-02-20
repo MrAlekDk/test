@@ -14,6 +14,6 @@ app.get("/time",(req, res)=>{
 
 
 app.use(express.static(__dirname+'/Public'))
-app.listen(5000,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("Now running on port: ", 8080);
 });

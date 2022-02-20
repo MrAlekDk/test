@@ -1,6 +1,11 @@
 const express = require("express");
 const app = express();
 
+app.get("/",(req,res)=>{
+
+    res.sendFile(__dirname+'/Public/index.html');
+})
+
 
 app.get("/time",(req, res)=>{
 

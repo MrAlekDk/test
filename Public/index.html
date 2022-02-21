@@ -64,7 +64,10 @@ let date = new Date();
 currentTime();
 
     function test(){
-        if(date.getDay()!==2){
+        if(date.getDay()===2 && date.getHours>8 && date.getHours<16){
+            document.getElementById("main-content").hidden=false
+        }
+        else{
             document.getElementById("main-content").hidden=true
         }
     }

@@ -64,7 +64,7 @@ let date = new Date();
 currentTime();
 
     function isItNodeTime(){
-        if(date.getDay()===2 && date.getHours>8 && date.getHours<16){
+        if(date.getDay()===2 && date.getHours()>8 && date.getHours()<16){
             document.getElementById("main-content").hidden=false
         }
         else{
